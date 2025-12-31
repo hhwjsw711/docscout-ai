@@ -20,6 +20,7 @@ const BillingTab = () => {
     await checkout({
       productId,
       dialog: CheckoutDialog,
+      successUrl: window.location.href,
     });
   };
 

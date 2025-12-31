@@ -24,7 +24,7 @@ export const sendEmailVerification = async (
   },
 ) => {
   await resend.sendEmail(ctx, {
-    from: "Test <onboarding@boboddy.business>",
+    from: "Test <onboarding@strudel.college>",
     to,
     subject: "Verify your email address",
     html: await render(<VerifyEmail url={url} />),
@@ -42,7 +42,7 @@ export const sendOTPVerification = async (
   },
 ) => {
   await resend.sendEmail(ctx, {
-    from: "Test <onboarding@boboddy.business>",
+    from: "Test <onboarding@strudel.college>",
     to,
     subject: "Verify your email address",
     html: await render(<VerifyOTP code={code} />),
@@ -60,7 +60,7 @@ export const sendMagicLink = async (
   },
 ) => {
   await resend.sendEmail(ctx, {
-    from: "Test <onboarding@boboddy.business>",
+    from: "Test <onboarding@strudel.college>",
     to,
     subject: "Sign in to your account",
     html: await render(<MagicLinkEmail url={url} />),
@@ -78,7 +78,7 @@ export const sendResetPassword = async (
   },
 ) => {
   await resend.sendEmail(ctx, {
-    from: "Test <onboarding@boboddy.business>",
+    from: "Test <onboarding@strudel.college>",
     to,
     subject: "Reset your password",
     html: await render(<ResetPasswordEmail url={url} />),
