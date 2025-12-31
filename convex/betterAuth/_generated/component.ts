@@ -1,6 +1,6 @@
 /* eslint-disable */
 /**
- * Generated `api` utility.
+ * Generated `ComponentApi` utility.
  *
  * THIS CODE IS AUTOMATICALLY GENERATED.
  *
@@ -8,84 +8,21 @@
  * @module
  */
 
-import type * as auth from "../auth.js";
-import type * as autumn from "../autumn.js";
-import type * as email from "../email.js";
-import type * as emails_components_BaseEmail from "../emails/components/BaseEmail.js";
-import type * as emails_magicLink from "../emails/magicLink.js";
-import type * as emails_resetPassword from "../emails/resetPassword.js";
-import type * as emails_verifyEmail from "../emails/verifyEmail.js";
-import type * as emails_verifyOTP from "../emails/verifyOTP.js";
-import type * as http from "../http.js";
-import type * as middleware from "../middleware.js";
-import type * as tables_doumentationTable from "../tables/doumentationTable.js";
-import type * as tables_threadTable from "../tables/threadTable.js";
-import type * as tables_webDataTable from "../tables/webDataTable.js";
-import type * as utils_lib from "../utils/lib.js";
-import type * as v1_ai from "../v1/ai.js";
-import type * as v1_chat from "../v1/chat.js";
-import type * as v1_documentation from "../v1/documentation.js";
-import type * as v1_firecrawl from "../v1/firecrawl.js";
-import type * as v1_scrapeWeb from "../v1/scrapeWeb.js";
-import type * as v1_upload from "../v1/upload.js";
-
-import type {
-  ApiFromModules,
-  FilterApi,
-  FunctionReference,
-} from "convex/server";
-
-declare const fullApi: ApiFromModules<{
-  auth: typeof auth;
-  autumn: typeof autumn;
-  email: typeof email;
-  "emails/components/BaseEmail": typeof emails_components_BaseEmail;
-  "emails/magicLink": typeof emails_magicLink;
-  "emails/resetPassword": typeof emails_resetPassword;
-  "emails/verifyEmail": typeof emails_verifyEmail;
-  "emails/verifyOTP": typeof emails_verifyOTP;
-  http: typeof http;
-  middleware: typeof middleware;
-  "tables/doumentationTable": typeof tables_doumentationTable;
-  "tables/threadTable": typeof tables_threadTable;
-  "tables/webDataTable": typeof tables_webDataTable;
-  "utils/lib": typeof utils_lib;
-  "v1/ai": typeof v1_ai;
-  "v1/chat": typeof v1_chat;
-  "v1/documentation": typeof v1_documentation;
-  "v1/firecrawl": typeof v1_firecrawl;
-  "v1/scrapeWeb": typeof v1_scrapeWeb;
-  "v1/upload": typeof v1_upload;
-}>;
+import type { FunctionReference } from "convex/server";
 
 /**
- * A utility for referencing Convex functions in your app's public API.
+ * A utility for referencing a Convex component's exposed API.
  *
+ * Useful when expecting a parameter like `components.myComponent`.
  * Usage:
- * ```js
- * const myFunctionReference = api.myModule.myFunction;
+ * ```ts
+ * async function myFunction(ctx: QueryCtx, component: ComponentApi) {
+ *   return ctx.runQuery(component.someFile.someQuery, { ...args });
+ * }
  * ```
  */
-export declare const api: FilterApi<
-  typeof fullApi,
-  FunctionReference<any, "public">
->;
-
-/**
- * A utility for referencing Convex functions in your app's internal API.
- *
- * Usage:
- * ```js
- * const myFunctionReference = internal.myModule.myFunction;
- * ```
- */
-export declare const internal: FilterApi<
-  typeof fullApi,
-  FunctionReference<any, "internal">
->;
-
-export declare const components: {
-  betterAuth: {
+export type ComponentApi<Name extends string | undefined = string | undefined> =
+  {
     adapter: {
       create: FunctionReference<
         "mutation",
@@ -163,7 +100,8 @@ export declare const components: {
           onCreateHandle?: string;
           select?: Array<string>;
         },
-        any
+        any,
+        Name
       >;
       deleteMany: FunctionReference<
         "mutation",
@@ -370,7 +308,8 @@ export declare const components: {
             numItems: number;
           };
         },
-        any
+        any,
+        Name
       >;
       deleteOne: FunctionReference<
         "mutation",
@@ -569,7 +508,8 @@ export declare const components: {
               };
           onDeleteHandle?: string;
         },
-        any
+        any,
+        Name
       >;
       findMany: FunctionReference<
         "query",
@@ -616,7 +556,8 @@ export declare const components: {
               | null;
           }>;
         },
-        any
+        any,
+        Name
       >;
       findOne: FunctionReference<
         "query",
@@ -653,7 +594,8 @@ export declare const components: {
               | null;
           }>;
         },
-        any
+        any,
+        Name
       >;
       updateMany: FunctionReference<
         "mutation",
@@ -914,7 +856,8 @@ export declare const components: {
             numItems: number;
           };
         },
-        any
+        any,
+        Name
       >;
       updateOne: FunctionReference<
         "mutation",
@@ -1167,7 +1110,8 @@ export declare const components: {
               };
           onUpdateHandle?: string;
         },
-        any
+        any,
+        Name
       >;
     };
     auth: {
@@ -1190,297 +1134,8 @@ export declare const components: {
           updatedAt: number;
           userId?: null | string;
           username?: null | string;
-        }
+        },
+        Name
       >;
     };
   };
-  resend: {
-    lib: {
-      cancelEmail: FunctionReference<
-        "mutation",
-        "internal",
-        { emailId: string },
-        null
-      >;
-      cleanupAbandonedEmails: FunctionReference<
-        "mutation",
-        "internal",
-        { olderThan?: number },
-        null
-      >;
-      cleanupOldEmails: FunctionReference<
-        "mutation",
-        "internal",
-        { olderThan?: number },
-        null
-      >;
-      createManualEmail: FunctionReference<
-        "mutation",
-        "internal",
-        {
-          from: string;
-          headers?: Array<{ name: string; value: string }>;
-          replyTo?: Array<string>;
-          subject: string;
-          to: string;
-        },
-        string
-      >;
-      get: FunctionReference<
-        "query",
-        "internal",
-        { emailId: string },
-        {
-          complained: boolean;
-          createdAt: number;
-          errorMessage?: string;
-          finalizedAt: number;
-          from: string;
-          headers?: Array<{ name: string; value: string }>;
-          html?: string;
-          opened: boolean;
-          replyTo: Array<string>;
-          resendId?: string;
-          segment: number;
-          status:
-            | "waiting"
-            | "queued"
-            | "cancelled"
-            | "sent"
-            | "delivered"
-            | "delivery_delayed"
-            | "bounced"
-            | "failed";
-          subject: string;
-          text?: string;
-          to: string;
-        } | null
-      >;
-      getStatus: FunctionReference<
-        "query",
-        "internal",
-        { emailId: string },
-        {
-          complained: boolean;
-          errorMessage: string | null;
-          opened: boolean;
-          status:
-            | "waiting"
-            | "queued"
-            | "cancelled"
-            | "sent"
-            | "delivered"
-            | "delivery_delayed"
-            | "bounced"
-            | "failed";
-        } | null
-      >;
-      handleEmailEvent: FunctionReference<
-        "mutation",
-        "internal",
-        { event: any },
-        null
-      >;
-      sendEmail: FunctionReference<
-        "mutation",
-        "internal",
-        {
-          from: string;
-          headers?: Array<{ name: string; value: string }>;
-          html?: string;
-          options: {
-            apiKey: string;
-            initialBackoffMs: number;
-            onEmailEvent?: { fnHandle: string };
-            retryAttempts: number;
-            testMode: boolean;
-          };
-          replyTo?: Array<string>;
-          subject: string;
-          text?: string;
-          to: string;
-        },
-        string
-      >;
-      updateManualEmail: FunctionReference<
-        "mutation",
-        "internal",
-        {
-          emailId: string;
-          errorMessage?: string;
-          resendId?: string;
-          status:
-            | "waiting"
-            | "queued"
-            | "cancelled"
-            | "sent"
-            | "delivered"
-            | "delivery_delayed"
-            | "bounced"
-            | "failed";
-        },
-        null
-      >;
-    };
-  };
-  r2: {
-    lib: {
-      deleteMetadata: FunctionReference<
-        "mutation",
-        "internal",
-        { bucket: string; key: string },
-        null
-      >;
-      deleteObject: FunctionReference<
-        "mutation",
-        "internal",
-        {
-          accessKeyId: string;
-          bucket: string;
-          endpoint: string;
-          key: string;
-          secretAccessKey: string;
-        },
-        null
-      >;
-      deleteR2Object: FunctionReference<
-        "action",
-        "internal",
-        {
-          accessKeyId: string;
-          bucket: string;
-          endpoint: string;
-          key: string;
-          secretAccessKey: string;
-        },
-        null
-      >;
-      getMetadata: FunctionReference<
-        "query",
-        "internal",
-        {
-          accessKeyId: string;
-          bucket: string;
-          endpoint: string;
-          key: string;
-          secretAccessKey: string;
-        },
-        {
-          bucket: string;
-          bucketLink: string;
-          contentType?: string;
-          key: string;
-          lastModified: string;
-          link: string;
-          sha256?: string;
-          size?: number;
-          url: string;
-        } | null
-      >;
-      listMetadata: FunctionReference<
-        "query",
-        "internal",
-        {
-          accessKeyId: string;
-          bucket: string;
-          cursor?: string;
-          endpoint: string;
-          limit?: number;
-          secretAccessKey: string;
-        },
-        {
-          continueCursor: string;
-          isDone: boolean;
-          page: Array<{
-            bucket: string;
-            bucketLink: string;
-            contentType?: string;
-            key: string;
-            lastModified: string;
-            link: string;
-            sha256?: string;
-            size?: number;
-            url: string;
-          }>;
-          pageStatus?: null | "SplitRecommended" | "SplitRequired";
-          splitCursor?: null | string;
-        }
-      >;
-      store: FunctionReference<
-        "action",
-        "internal",
-        {
-          accessKeyId: string;
-          bucket: string;
-          endpoint: string;
-          secretAccessKey: string;
-          url: string;
-        },
-        any
-      >;
-      syncMetadata: FunctionReference<
-        "action",
-        "internal",
-        {
-          accessKeyId: string;
-          bucket: string;
-          endpoint: string;
-          key: string;
-          onComplete?: string;
-          secretAccessKey: string;
-        },
-        null
-      >;
-      upsertMetadata: FunctionReference<
-        "mutation",
-        "internal",
-        {
-          bucket: string;
-          contentType?: string;
-          key: string;
-          lastModified: string;
-          link: string;
-          sha256?: string;
-          size?: number;
-        },
-        { isNew: boolean }
-      >;
-    };
-  };
-  autumn: {};
-  persistentTextStreaming: {
-    lib: {
-      addChunk: FunctionReference<
-        "mutation",
-        "internal",
-        { final: boolean; streamId: string; text: string },
-        any
-      >;
-      createStream: FunctionReference<"mutation", "internal", {}, any>;
-      getStreamStatus: FunctionReference<
-        "query",
-        "internal",
-        { streamId: string },
-        "pending" | "streaming" | "done" | "error" | "timeout"
-      >;
-      getStreamText: FunctionReference<
-        "query",
-        "internal",
-        { streamId: string },
-        {
-          status: "pending" | "streaming" | "done" | "error" | "timeout";
-          text: string;
-        }
-      >;
-      setStreamStatus: FunctionReference<
-        "mutation",
-        "internal",
-        {
-          status: "pending" | "streaming" | "done" | "error" | "timeout";
-          streamId: string;
-        },
-        any
-      >;
-    };
-  };
-};

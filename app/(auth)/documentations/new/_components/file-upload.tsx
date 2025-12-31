@@ -31,7 +31,7 @@ const FileUpload = () => {
   const router = useRouter();
   const customer = useCustomer();
   const [files, setFiles] = React.useState<FileItem[]>([]);
-  const inputNameRef = React.useRef<HTMLInputElement>(null);
+  const [name, setName] = React.useState("");
   const { upload } = useConvexUploadFile(api.v1.upload, true);
   const { mutate, isPending } = useConvexMutation(
     api.v1.documentation.saveDocumentationFile,
@@ -104,8 +104,7 @@ const FileUpload = () => {
     if (
       isPending ||
       files.length === 0 ||
-      inputNameRef.current === null ||
-      inputNameRef.current.value === "" ||
+      name.trim() === "" ||
       !customer
     )
       return;
@@ -132,7 +131,7 @@ const FileUpload = () => {
 
     mutate({
       files: filesPayload,
-      name: inputNameRef.current.value,
+      name: name,
     })
       .then((documentationId) => {
         if (!documentationId) return;
@@ -150,15 +149,20 @@ const FileUpload = () => {
       <div className="flex items-end justify-between gap-4 mb-6">
         <div className="flex-1">
           <Label htmlFor="name">Name</Label>
-          <Input className="mt-2 border-muted" name="name" ref={inputNameRef} />
+          <Input 
+            className="mt-2 border-muted" 
+            name="name" 
+            value={name}
+            onChange={(e) => setName(e.target.value)} 
+            placeholder="Enter documentation name"
+          />
         </div>
         <Button
           onClick={handleSaveDocumentation}
           disabled={
             isPending ||
             files.length === 0 ||
-            inputNameRef.current === null ||
-            inputNameRef.current.value === ""
+            name.trim() === ""
           }
         >
           Save Documentation
