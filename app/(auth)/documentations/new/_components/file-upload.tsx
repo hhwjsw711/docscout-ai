@@ -97,7 +97,7 @@ const FileUpload = () => {
   const { getRootProps, getInputProps, isDragActive, isDragReject } =
     useDropzone({
       onDrop,
-      maxSize: 1 * 1024 * 1024,
+      maxSize: 20 * 1024 * 1024,
     });
 
   const handleSaveDocumentation = () => {
@@ -178,7 +178,7 @@ const FileUpload = () => {
       >
         <input {...getInputProps()} />
         {isDragReject ? (
-          <p>File size should be less than 1MB</p>
+          <p>File size should be less than 20MB</p>
         ) : isDragActive ? (
           <p>Drop the files here ...</p>
         ) : (
@@ -186,7 +186,7 @@ const FileUpload = () => {
             <RiFileUploadLine size={32} aria-hidden="true" />
             <p>Drag and drop your file here, or choose a file</p>
             <p className="text-sm text-muted-foreground">
-              MD,PDF,TXT up to 1MB
+              MD,PDF,TXT up to 20MB
             </p>
             <Button className="mt-3">Upload</Button>
           </div>
